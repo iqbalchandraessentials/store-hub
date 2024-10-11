@@ -24,7 +24,7 @@
         <!-- Sidebar -->
         <div class="border-right" id="sidebar-wrapper">
           <div class="sidebar-heading text-center">
-            <img src="/images/admin.png" alt="" class="my-4" style="max-width: 150px;" />
+            <img src="{{ url('images/dashboard-store-logo.svg')}}" alt="" class="my-4" style="max-width: 150px;" />
           </div>
           <div class="list-group list-group-flush">
             <a
@@ -109,18 +109,35 @@
                         alt=""
                         class="rounded-circle mr-2 profile-picture"
                       />
-                      Hi, Angga
+                      Hi, {{ Auth::user()->name }}
                     </a>
-                    <div class="dropdown-menu">
-                      <a href="/" class="dropdown-item">Logout</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="{{url('/')}}">Back to Store</a>
+                      <a class="dropdown-item" href="dashboard-account.html"
+                        >Settings</a
+                      >
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="">Logout</a>
                     </div>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link d-inline-block mt-2" href="{{route('cart')}}">
+                      @php $carts = \App\Cart::where('users_id', Auth::user()->id)->count(); 
+                      @endphp
+                      @if ($carts>0)
+                      <img src="{{url('images/icon-cart-filled.svg')}}" alt="" />
+                      <div class="badge badge-success card-badge">{{$carts}}</div>
+                          @else
+                      <img src="{{url('images/icon-cart-empty.svg')}}" alt="" />
+                      @endif
+                    </a>
                   </li>
                 </ul>
 
                 <ul class="navbar-nav d-block d-lg-none">
                   <li class="nav-item">
                     <a href="#" class="nav-link">
-                      Hi, Angga
+                      Hi, {{ Auth::user()->name }}
                     </a>
                   </li>
                   <li class="nav-item">
